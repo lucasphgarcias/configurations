@@ -11,5 +11,5 @@ Configurations
  - Fazer o colone do arquivo na raiz do sistema (~)
   git clone https://github.com/lucasphgarcias/configurations.yalm
 - No diretorio (~) localiza o arquivo clonado : docker-compose.yalm
-- rode o seguinte comando: docker-compose up -d
+- Rode o seguinte comando: docker-compose up -d
 - Em seguida ele vai instalar o Zabbix, Mysql e Grafana.
