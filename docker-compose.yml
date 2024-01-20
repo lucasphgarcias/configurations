@@ -1,4 +1,4 @@
- version: '3.1'
+version: '3.1'
 
 networks:
   network-zabbix:
@@ -25,6 +25,8 @@ services:
     image: zabbix/zabbix-server-mysql:ubuntu-5.0.1
     networks:
       - network-zabbix
+    links:
+      - mysql
     restart: always
     ports:
       - '10051:10051'
@@ -43,6 +45,8 @@ services:
     image: zabbix/zabbix-web-apache-mysql:ubuntu-5.0.1
     networks:
       - network-zabbix
+    links:
+      - mysql
     restart: always
     ports:
       - '80:8080'
@@ -61,6 +65,9 @@ services:
     image: grafana/grafana
     networks:
       - network-zabbix
+    links:
+      - mysql
+      - zabbix-server
     restart: always
     ports:
       - '3000:3000'
@@ -69,13 +76,14 @@ services:
     depends_on:
       - mysql
       - zabbix-server
-
   zabbix-agent:
     container_name: zabbix-agent
     image: zabbix/zabbix-agent2:alpine-5.0.1
     user: root
     networks:
       - network-zabbix
+    links:
+      - zabbix-server
     restart: always
     privileged: true
     volumes:
@@ -84,4 +92,4 @@ services:
       - '10050:10050'
     environment:
       - ZBX_HOSTNAME=Zabbix server
-      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_SERVER_HOST=172.18.0.1
