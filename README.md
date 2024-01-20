@@ -1,4 +1,4 @@
-# configurations
+# Configurations
 Configurations
 
 #Instalção
